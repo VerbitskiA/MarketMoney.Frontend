@@ -11,8 +11,8 @@ on:
   workflow_dispatch:
 
 env:
-  IMAGE_NAME: "moneymarket-front"
-  CONTAINER_NAME: "moneymarket-front"
+  IMAGE_NAME: "marketmoney-front"
+  CONTAINER_NAME: "marketmoney-front"
   REGISTRY: "verbitskialex"
   DOCKER_USER: ${{secrets.DOCKER_USERNAME}}
   DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
@@ -26,18 +26,18 @@ jobs:
           docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
 
       - name: Build
-        run: docker build . --file Dockerfile --tag verbitskialex/moneymarket-front:${{github.sha}}
+        run: docker build . --file Dockerfile --tag verbitskialex/marketmoney-front:${{github.sha}}
 
       - name: Push
-        run: docker push verbitskialex/moneymarket-front:${{github.sha}}
+        run: docker push verbitskialex/marketmoney-front:${{github.sha}}
   deploy:
     runs-on: ubuntu-latest
     needs: build_and_push
     env:
       DOCKER_USER: ${{secrets.DOCKER_USERNAME}}
       DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
-      IMAGE_NAME: "moneymarket-front"
-      CONTAINER_NAME: "moneymarket-front"
+      IMAGE_NAME: "marketmoney-front"
+      CONTAINER_NAME: "marketmoney-front"
       REGISTRY: "verbitskialex"
     steps:
       - name: Deploy
